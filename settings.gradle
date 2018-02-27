@@ -1,2 +1,4 @@
 rootProject.name = 'java-telegram-bot-api'
+include 'sdk'
+findProject(':sdk')?.name = 'bot.sdk'
 

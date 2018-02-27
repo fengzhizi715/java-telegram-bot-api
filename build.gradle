@@ -1,8 +1,17 @@
+ext {
+    libraries = [
+            vertx                     : "3.5.1",
+
+            rxjava                    : "2.1.10"
+    ]
+}
+
 subprojects {
     repositories {
         jcenter()
     }
 }
+
 group 'com.cv4j.telegram'
 version '1.0-SNAPSHOT'
 
@@ -16,4 +25,11 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    implementation "io.reactivex.rxjava2:rxjava:${libs.rxjava}"
+
+    implementation "io.vertx:vertx-core:${libs.vertx}"
+    implementation "io.vertx:vertx-web:${libs.vertx}"
+    implementation "io.vertx:vertx-web-client:${libs.vertx}"
+    implementation "io.vertx:vertx-rx-java2:${libs.vertx}"
 }
