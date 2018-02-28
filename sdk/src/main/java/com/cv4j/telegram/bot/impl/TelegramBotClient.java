@@ -33,7 +33,7 @@ public class TelegramBotClient {
     public Maybe<HttpResponse<String>> send(final Request request) {
 
         return webClient
-                .get(443, Config.API_URL,request.getMethodName())
+                .post(443, Config.API_URL,request.getMethodName())
                 .ssl(true)
                 .as(BodyCodec.string())
                 .rxSend()
