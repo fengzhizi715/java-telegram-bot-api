@@ -24,4 +24,5 @@ dependencies {
     implementation "io.vertx:vertx-rx-java2:${libs.vertx}"
 
     implementation 'com.alibaba:fastjson:1.2.46'
+    implementation 'org.projectlombok:lombok:1.16.18'
 }
