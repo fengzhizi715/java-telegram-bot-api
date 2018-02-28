@@ -2,10 +2,11 @@ ext {
     libraries = [
             vertx                     : "3.5.1",
 
-            rxjava                    : "2.1.10"
+            rxjava                    : "2.1.10",
+
+            tony_common_utils         : "1.2.5"
     ]
 }
-
 subprojects {
     repositories {
         jcenter()
