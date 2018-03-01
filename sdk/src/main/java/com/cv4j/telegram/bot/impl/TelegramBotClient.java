@@ -5,7 +5,10 @@ import com.cv4j.telegram.bot.config.Config;
 import com.cv4j.telegram.bot.request.Request;
 import com.cv4j.telegram.bot.utils.VertxUtils;
 import io.reactivex.Maybe;
+
 import io.vertx.ext.web.client.WebClientOptions;
+import io.vertx.reactivex.core.MultiMap;
+import io.vertx.reactivex.ext.web.client.HttpRequest;
 import io.vertx.reactivex.ext.web.client.HttpResponse;
 import io.vertx.reactivex.ext.web.client.WebClient;
 import io.vertx.reactivex.ext.web.codec.BodyCodec;
@@ -16,12 +19,10 @@ import io.vertx.reactivex.ext.web.codec.BodyCodec;
 public class TelegramBotClient {
 
     private WebClient webClient;
-    private JSONObject json;
     private String baseUrl;
 
-    public TelegramBotClient(JSONObject json, String baseUrl) {
+    public TelegramBotClient(String baseUrl) {
 
-        this.json = json;
         this.baseUrl = baseUrl;
 
         WebClientOptions options = new WebClientOptions();
@@ -32,11 +33,24 @@ public class TelegramBotClient {
 
     public Maybe<HttpResponse<String>> send(final Request request) {
 
-        return webClient
+        HttpRequest<String> httpRequest = webClient
                 .post(443, Config.API_URL,request.getMethodName())
                 .ssl(true)
-                .as(BodyCodec.string())
-                .rxSend()
-                .toMaybe();
+                .as(BodyCodec.string());
+
+
+
+        if (request.isMultipart()) {
+
+            return null;
+        } else {
+
+            MultiMap form = MultiMap.caseInsensitiveMultiMap();
+            form.getDelegate().addAll(request.getParameters());
+
+            return httpRequest.rxSendForm(form)
+                    .toMaybe();
+        }
+
     }
 }
