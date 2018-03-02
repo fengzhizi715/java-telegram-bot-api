@@ -2,6 +2,8 @@ package com.cv4j.telegram.bot.request;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cv4j.telegram.bot.response.HttpResponse;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -12,8 +14,15 @@ import java.util.Map;
  */
 public class Request<R extends HttpResponse> {
 
+    @Getter
     private final Class<? extends R> responseClass;
+
+    @Getter
     private final Map<String, Object> parameters;
+
+    @Getter
+    @Setter
+    private HttpMethod httpMethod;
 
     public Request(Class<? extends R> responseClass) {
         this.responseClass = responseClass;
@@ -31,14 +40,6 @@ public class Request<R extends HttpResponse> {
     public String getMethodName() {
         String className = this.getClass().getSimpleName();
         return Character.toLowerCase(className.charAt(0)) + className.substring(1);
-    }
-
-    public Map<String, Object> getParameters() {
-        return parameters;
-    }
-
-    public Type getResponseType() {
-        return responseClass;
     }
 
     public boolean isMultipart() {

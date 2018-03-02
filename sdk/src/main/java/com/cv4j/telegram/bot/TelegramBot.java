@@ -2,9 +2,9 @@ package com.cv4j.telegram.bot;
 
 import com.cv4j.telegram.bot.impl.TelegramBotClient;
 import com.cv4j.telegram.bot.request.Request;
-import io.reactivex.Maybe;
+import com.cv4j.telegram.bot.response.HttpResponse;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import io.vertx.reactivex.ext.web.client.HttpResponse;
 
 /**
  * Created by tony on 2018/2/27.
@@ -22,7 +22,12 @@ public class TelegramBot {
     }
 
     public void execute(Request request) {
-        api.send(request).subscribe();
+        api.send(request).observeOn(Schedulers.io()).subscribe(new Consumer<HttpResponse<String>>() {
+            @Override
+            public void accept(HttpResponse<String> stringHttpResponse) throws Exception {
+                System.out.println(stringHttpResponse.toString());
+            }
+        });
     }
 
     public static final class Builder {
