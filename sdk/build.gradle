@@ -25,4 +25,5 @@ dependencies {
 
     implementation 'com.alibaba:fastjson:1.2.46'
     implementation 'org.projectlombok:lombok:1.16.18'
+    compile 'com.squareup.okhttp3:okhttp:3.10.0'
 }

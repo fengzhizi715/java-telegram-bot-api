@@ -2,6 +2,9 @@ package com.cv4j.telegram.bot;
 
 import com.cv4j.telegram.bot.impl.TelegramBotClient;
 import com.cv4j.telegram.bot.request.Request;
+import io.reactivex.Maybe;
+import io.reactivex.schedulers.Schedulers;
+import io.vertx.reactivex.ext.web.client.HttpResponse;
 
 /**
  * Created by tony on 2018/2/27.
@@ -19,7 +22,7 @@ public class TelegramBot {
     }
 
     public void execute(Request request) {
-        api.send(request);
+        api.send(request).subscribe();
     }
 
     public static final class Builder {
